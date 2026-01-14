@@ -145,3 +145,78 @@ article h2 {
     display: flex;
     gap: 10px;
 }
+
+.subscribe-box {
+    margin: 48px 0;
+    padding: 32px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.subscribe-box p:first-child {
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    background: white;
+}
+
+.subscribe-form input:focus {
+    outline: none;
+    border-color: #0066cc;
+}
+
+.subscribe-form button {
+    padding: 12px 24px;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.subscribe-form button:hover:not(:disabled) {
+    background: #0052a3;
+}
+
+.subscribe-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.subscribe-message {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.subscribe-message.success {
+    color: #0a7d0a;
+}
+
+.subscribe-message.error {
+    color: #cc0000;
+}
+
+.privacy-note {
+    font-size: 14px;
+    color: #6b6b6b;
+    margin-top: 8px;
+    margin-bottom: 0;
+}

@@ -1,4 +1,5 @@
 import Nav from './components/Nav'
+import Subscribe from './components/Subscribe'
 
 export default function Home() {
   return (
@@ -31,6 +32,8 @@ export default function Home() {
         </ul>
         
         <p>every donation received and every expense will be posted on this website. full transparency. <a href="/articles/donations-tracker">see donations tracker</a> | <a href="/articles/ramadan-food-project">read more</a></p>
+        
+        <Subscribe />
         
         <h2>Contact</h2>
         <ul>
