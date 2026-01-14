@@ -49,12 +49,12 @@ p {
 }
 
 a {
-    color: #000;
+    color: #0066cc;
     text-decoration: underline;
 }
 
 a:hover {
-    text-decoration: none;
+    color: #0052a3;
 }
 
 ul {
