@@ -21,7 +21,7 @@ export default function Home() {
         
         <p>specialize in distributed systems architecture, real-time data processing, blockchain security protocols, and production-scale machine learning infrastructure.</p>
         
-        <h2>ramadan food project</h2>
+        <h2>Ramadan Food Project</h2>
         <p>starting an organization to feed people during ramadan. the last two years i had nothing to eat for iftar or suhur. now im working to make sure others dont go through that.</p>
         
         <p>donations:</p>
@@ -32,7 +32,7 @@ export default function Home() {
         
         <p>every donation received and every expense will be posted on this website. full transparency. <a href="/articles/donations-tracker">see donations tracker</a> | <a href="/articles/ramadan-food-project">read more</a></p>
         
-        <h2>contact</h2>
+        <h2>Contact</h2>
         <ul>
           <li><a href="mailto:olajidealameen4@gmail.com">olajidealameen4@gmail.com</a></li>
           <li><a href="https://x.com/alameenpd">x.com/alameenpd</a></li>
