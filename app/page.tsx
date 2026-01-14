@@ -9,6 +9,8 @@ export default function Home() {
         
         <p>software engineer based in lagos, nigeria</p>
         
+        <p>this is my personal public diary. documenting my journey, thoughts on religion, politics, education, tech, and life. everything i learn, build, and think about.</p>
+        
         <p>self-taught since 2020. currently studying computer science at lagos state university.</p>
         
         <p>built 3 failed projects before finding success - grazias (saas for collecting testimonials), an openai api wrapper for writing articles (2022), and another that didnt work out. learned more from those failures than anything else.</p>

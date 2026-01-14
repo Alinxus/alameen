@@ -1,10 +1,10 @@
 'use client'
 
 import Nav from '../components/Nav'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function Editor() {
+function EditorContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const slug = searchParams.get('slug')
@@ -102,5 +102,13 @@ export default function Editor() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function Editor() {
+  return (
+    <Suspense fallback={<div className="container"><Nav /><main><p>loading...</p></main></div>}>
+      <EditorContent />
+    </Suspense>
   )
 }
