@@ -2,6 +2,11 @@ import Nav from '../components/Nav'
 import Link from 'next/link'
 import { getArticles } from '@/lib/articles'
 
+export const metadata = {
+  title: 'articles',
+  description: 'technical deep dives on open models, agent memory, and inference runtimes',
+}
+
 export default async function Articles() {
   const articles = await getArticles()
 
@@ -10,9 +15,9 @@ export default async function Articles() {
       <Nav />
       <main>
         <h1>articles</h1>
-        
+
         {articles.length === 0 ? (
-          <p>no articles yet. <Link href="/editor">write one?</Link></p>
+          <p>no articles yet.</p>
         ) : (
           articles.map((article) => (
             <article key={article.slug}>
@@ -28,5 +33,3 @@ export default async function Articles() {
     </div>
   )
 }
-
-export const dynamic = 'force-dynamic'

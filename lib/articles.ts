@@ -1,10 +1,11 @@
 import fs from 'fs/promises'
 import path from 'path'
+import matter from 'gray-matter'
 
-const articlesDir = path.join(process.cwd(), 'data', 'articles')
+const articlesDir = path.join(process.cwd(), 'content', 'articles')
 
 // slugs become filenames, so anything with a path separator or a dot segment
-// would let a caller read, write, or unlink files outside data/articles
+// would let a caller read files outside content/articles
 export function isValidSlug(slug: unknown): slug is string {
   return typeof slug === 'string' && /^[a-z0-9][a-z0-9-]*$/.test(slug)
 }
@@ -12,92 +13,58 @@ export function isValidSlug(slug: unknown): slug is string {
 export interface Article {
   slug: string
   title: string
-  content: string
   excerpt?: string
   date: string
 }
 
-async function ensureDir() {
-  try {
-    await fs.mkdir(articlesDir, { recursive: true })
-  } catch (error) {
+export interface ArticleWithContent extends Article {
+  content: string
+}
+
+function parse(slug: string, raw: string): ArticleWithContent {
+  const { data, content } = matter(raw)
+
+  return {
+    slug,
+    title: data.title ?? slug,
+    excerpt: data.excerpt,
+    date: data.date ?? '',
+    content,
   }
 }
 
 export async function getArticles(): Promise<Article[]> {
-  await ensureDir()
-  
+  let files: string[]
+
   try {
-    const files = await fs.readdir(articlesDir)
-    const articles = await Promise.all(
-      files
-        .filter(file => file.endsWith('.json'))
-        .map(async (file) => {
-          const content = await fs.readFile(path.join(articlesDir, file), 'utf-8')
-          return JSON.parse(content) as Article
-        })
-    )
-    
-    return articles.sort((a, b) => 
-      new Date(b.date).getTime() - new Date(a.date).getTime()
-    )
-  } catch (error) {
+    files = await fs.readdir(articlesDir)
+  } catch {
     return []
   }
+
+  const articles = await Promise.all(
+    files
+      .filter(file => file.endsWith('.mdx'))
+      .map(async (file) => {
+        const slug = file.replace(/\.mdx$/, '')
+        const raw = await fs.readFile(path.join(articlesDir, file), 'utf-8')
+        const { content, ...meta } = parse(slug, raw)
+        return meta
+      })
+  )
+
+  return articles.sort((a, b) =>
+    new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
 }
 
-export async function getArticle(slug: string): Promise<Article | null> {
+export async function getArticle(slug: string): Promise<ArticleWithContent | null> {
   if (!isValidSlug(slug)) return null
 
-  await ensureDir()
-
   try {
-    const content = await fs.readFile(
-      path.join(articlesDir, `${slug}.json`),
-      'utf-8'
-    )
-    return JSON.parse(content) as Article
-  } catch (error) {
+    const raw = await fs.readFile(path.join(articlesDir, `${slug}.mdx`), 'utf-8')
+    return parse(slug, raw)
+  } catch {
     return null
   }
-}
-
-export async function saveArticle(article: Omit<Article, 'date'> & { date?: string }): Promise<Article> {
-  if (!isValidSlug(article.slug)) {
-    throw new Error(`invalid slug: ${article.slug}`)
-  }
-
-  await ensureDir()
-
-  const articleData: Article = {
-    ...article,
-    date: article.date || new Date().toISOString().split('T')[0],
-  }
-  
-  await fs.writeFile(
-    path.join(articlesDir, `${article.slug}.json`),
-    JSON.stringify(articleData, null, 2),
-    'utf-8'
-  )
-  
-  return articleData
-}
-
-export async function deleteArticle(slug: string): Promise<void> {
-  if (!isValidSlug(slug)) return
-
-  await ensureDir()
-
-  try {
-    await fs.unlink(path.join(articlesDir, `${slug}.json`))
-  } catch (error) {
-  }
-}
-
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '')
 }

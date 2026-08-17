@@ -1,7 +1,10 @@
 import Nav from '@/app/components/Nav'
 import { getArticle, getArticles } from '@/lib/articles'
+import { mdxComponents } from '@/app/components/mdxComponents'
+import { mdxOptions } from '@/lib/mdx'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const articles = await getArticles()
@@ -10,10 +13,31 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ArticlePage({ 
-  params 
-}: { 
-  params: { slug: string } 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const article = await getArticle(params.slug)
+
+  if (!article) return {}
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: 'article',
+      publishedTime: article.date,
+    },
+  }
+}
+
+export default async function ArticlePage({
+  params
+}: {
+  params: { slug: string }
 }) {
   const article = await getArticle(params.slug)
 
@@ -27,11 +51,15 @@ export default async function ArticlePage({
       <main>
         <h1>{article.title}</h1>
         <p className="date">{article.date}</p>
-        
-        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+
+        <article className="prose">
+          <MDXRemote
+            source={article.content}
+            options={mdxOptions}
+            components={mdxComponents}
+          />
+        </article>
       </main>
     </div>
   )
 }
-
-export const dynamic = 'force-dynamic'
