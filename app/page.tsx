@@ -10,7 +10,7 @@ export default function Home() {
         
         <p>software engineer based in lagos, nigeria</p>
         
-        <p>this is my personal public diary. documenting my journey, thoughts on religion, politics, education, tech, and life. everything i learn, build, and think about.</p>
+        <p>this is where i write up the work in depth - training and quantizing open models, agent memory, inference runtimes, and the evaluation that decides whether any of it actually held. long posts, real numbers, reproducible where i can make them.</p>
         
         <p>self-taught since 2020. currently studying computer science at lagos state university.</p>
         
