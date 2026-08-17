@@ -16,7 +16,9 @@ export default function Home() {
         
         <p>now building <a href="https://badtheorylabs.com">bad theory labs</a> - an independent ai research lab in lagos shipping open models, agent infrastructure, native runtimes, and reproducible research. the principle: build ambitious systems, measure them without mercy, ship what survives.</p>
 
-        <p>we released btl-3, a 27b open-weight model for agentic coding and structured tool use - 95.12% on humaneval, 88.5% on bfcl v4, 262k context, and it fits under 8gb. btl runtime is an openai-compatible inference api with multi-provider routing.</p>
+        <p>our latest is <a href="https://huggingface.co/badtheorylabs/BTL-4">btl-4</a>, a 35b open-weight agentic reasoning model trained on an execution-gated corpus - trajectories were kept only where the code actually ran and passed its tests. 78.4% on swe-bench verified, 73.5% on bfcl v4, 262k native context, apache 2.0.</p>
+
+        <p><a href="https://huggingface.co/badtheorylabs/BTL-4-Compact">btl-4 compact</a> is the same model in a single 9.96gb file at 2.30 bits per weight, retaining 94.1% of full-precision behaviour. it loads in llama.cpp, ollama, and lm studio - a frontier-class coding model on hardware you already own. btl runtime is our openai-compatible inference api with multi-provider routing.</p>
 
         <p><a href="https://retaindb.com">retaindb</a> is the persistent memory layer for agents - memory that survives across sessions, grounded retrieval, sub-40ms lookups. state of the art on longmemeval preference recall.</p>
 
