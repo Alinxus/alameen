@@ -14,24 +14,15 @@ export default function Home() {
         
         <p>self-taught since 2020. currently studying computer science at lagos state university.</p>
         
-        <p>built 3 failed projects before finding success - grazias (saas for collecting testimonials), an openai api wrapper for writing articles (2022), and another that didnt work out. learned more from those failures than anything else.</p>
-        
-        <p>most recently worked as a full-stack systems engineer at costcrunch (nyc, remote) where i architected enterprise-grade multi-tenant infrastructure with zero-trust security architecture, designed high-performance semantic search systems processing massive datasets with sub-millisecond latency, and engineered fault-tolerant event-driven systems with kafka.</p>
-        
-        <p>now building <a href="https://usewhisper.dev">whisper</a> - an ai-powered code security platform that catches vulnerabilities through advanced execution flow analysis. enterprise-grade security auditing with cli, rest api, and web interface used by development teams worldwide.</p>
-        
+        <p>now building <a href="https://badtheorylabs.com">bad theory labs</a> - an independent ai research lab in lagos shipping open models, agent infrastructure, native runtimes, and reproducible research. the principle: build ambitious systems, measure them without mercy, ship what survives.</p>
+
+        <p>we released btl-3, a 27b open-weight model for agentic coding and structured tool use - 95.12% on humaneval, 88.5% on bfcl v4, 262k context, and it fits under 8gb. btl runtime is an openai-compatible inference api with multi-provider routing.</p>
+
+        <p><a href="https://retaindb.com">retaindb</a> is the persistent memory layer for agents - memory that survives across sessions, grounded retrieval, sub-40ms lookups. state of the art on longmemeval preference recall.</p>
+
+        <p>previously a full-stack systems engineer at costcrunch (nyc, remote) where i architected enterprise-grade multi-tenant infrastructure with zero-trust security architecture, designed high-performance semantic search systems processing massive datasets with sub-millisecond latency, and engineered fault-tolerant event-driven systems with kafka.</p>
+
         <p>specialize in distributed systems architecture, real-time data processing, blockchain security protocols, and production-scale machine learning infrastructure.</p>
-        
-        <h2>Ramadan Food Project</h2>
-        <p>starting an organization to feed people during ramadan. the last two years i had nothing to eat for iftar or suhur. now im working to make sure others dont go through that.</p>
-        
-        <p>donations:</p>
-        <ul>
-          <li>palmpay: 8120997879</li>
-          <li>name: Olajide Al-ameen</li>
-        </ul>
-        
-        <p>every donation received and every expense will be posted on this website. full transparency. <a href="/articles/donations-tracker">see donations tracker</a> | <a href="/articles/ramadan-food-project">read more</a></p>
         
         <Subscribe />
         
