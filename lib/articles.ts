@@ -3,6 +3,12 @@ import path from 'path'
 
 const articlesDir = path.join(process.cwd(), 'data', 'articles')
 
+// slugs become filenames, so anything with a path separator or a dot segment
+// would let a caller read, write, or unlink files outside data/articles
+export function isValidSlug(slug: unknown): slug is string {
+  return typeof slug === 'string' && /^[a-z0-9][a-z0-9-]*$/.test(slug)
+}
+
 export interface Article {
   slug: string
   title: string
@@ -41,8 +47,10 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticle(slug: string): Promise<Article | null> {
+  if (!isValidSlug(slug)) return null
+
   await ensureDir()
-  
+
   try {
     const content = await fs.readFile(
       path.join(articlesDir, `${slug}.json`),
@@ -55,8 +63,12 @@ export async function getArticle(slug: string): Promise<Article | null> {
 }
 
 export async function saveArticle(article: Omit<Article, 'date'> & { date?: string }): Promise<Article> {
+  if (!isValidSlug(article.slug)) {
+    throw new Error(`invalid slug: ${article.slug}`)
+  }
+
   await ensureDir()
-  
+
   const articleData: Article = {
     ...article,
     date: article.date || new Date().toISOString().split('T')[0],
@@ -72,8 +84,10 @@ export async function saveArticle(article: Omit<Article, 'date'> & { date?: stri
 }
 
 export async function deleteArticle(slug: string): Promise<void> {
+  if (!isValidSlug(slug)) return
+
   await ensureDir()
-  
+
   try {
     await fs.unlink(path.join(articlesDir, `${slug}.json`))
   } catch (error) {
